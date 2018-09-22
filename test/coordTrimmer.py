@@ -8,4 +8,4 @@ integer, decimal = number.split('.')
 
 decimal = decimal[0:min(len(decimal), int(decimalPlaces))]
 
-print(f'{integer}.{decimal}')
+print(f'{integer}\.{decimal}')
