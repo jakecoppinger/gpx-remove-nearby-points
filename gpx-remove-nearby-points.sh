@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
+set -e
 
-if [ "$#" -ne 4 ]; then
+
+#echo "lat: $1"
+#echo "lon: $2"
+#echo "dec places: $3"
+
+if [ "$#" -ne 3 ]; then
     echo "Jake Coppinger <jake@jakecoppinger.com> 2018"
     echo "./gpc-remove-nearby-points.sh LATITUDE LONGITUDE DEC_PLACES"
     echo ""
@@ -23,7 +29,8 @@ if [ "$#" -ne 4 ]; then
     exit
 fi
 
-lat=`./coordTrimmer.py $2 $4`
-lon=`./coordTrimmer.py $3 $4`
+lat=$(python3 -c "integer,decimal='$1'.split('.');print(f'{integer}\.{decimal[0:min(len(decimal),$3)]}')")
+lat=$(python3 -c "integer,decimal='$2'.split('.');print(f'{integer}\.{decimal[0:min(len(decimal),$3)]}')")
 
-cat $1 | python -c "import sys; print(' '.join([ l.strip() for l in sys.stdin.readlines() ]))" | perl -pe "s/<trkpt lat=\"$lat[0-9]*\" lon=\"$lon[0-9]*\">.*?<\/trkpt>//g"
+
+cat /dev/stdin| python -c "import sys; print(' '.join([ l.strip() for l in sys.stdin.readlines() ]))" | perl -pe "s/<trkpt lat=\"$lat[0-9]*\" lon=\"$lon[0-9]*\">.*?<\/trkpt>//g"
