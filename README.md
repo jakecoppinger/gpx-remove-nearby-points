@@ -27,10 +27,10 @@ For example: Removing points nearby to your home when uploading a trace to OpenS
 Remove all points in a GPX GPS trace that match the given coordinate to 3
 decimal places
 
-./gpc-remove-nearby-points.sh LATITUDE LONGITUDE DEC_PLACES
+./gpc-remove-nearby-points.sh FILENAME LATITUDE LONGITUDE DEC_PLACES
 
 ```
-cat input.gpx | ./gpc-remove-nearby-points.sh -33.8834,151.2065 3 > output.gpx
+./gpc-remove-nearby-points.sh input.gpx -33.8834,151.2065 3 > output.gpx
 ```
 
 # Author
