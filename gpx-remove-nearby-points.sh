@@ -2,7 +2,7 @@
 
 if [ "$#" -ne 4 ]; then
     echo "Jake Coppinger <jake@jakecoppinger.com> 2018"
-    echo "./gpc-remove-nearby-points.sh LATITUDE LONGITUDE DEC_PLACES"
+    echo "./gpc-remove-nearby-points.sh FILENAME LATITUDE LONGITUDE DEC_PLACES"
     echo ""
     echo "Removes all GPX (GPS) track points that match the given coordinate"
     echo "to DEC_PLACES places."
@@ -26,4 +26,7 @@ fi
 lat=`./coordTrimmer.py $2 $4`
 lon=`./coordTrimmer.py $3 $4`
 
-cat $1 | python -c "import sys; print(' '.join([ l.strip() for l in sys.stdin.readlines() ]))" | perl -pe "s/<trkpt lat=\"$lat[0-9]*\" lon=\"$lon[0-9]*\">.*?<\/trkpt>//g"
+#echo "lat in gpx remove is $lat"
+#echo "lon in gpx remove is $lon"
+
+cat $1 | python -c "import sys; print(' '.join([ l.strip() for l in sys.stdin.readlines() ]))" | perl -pe "s/<trkpt lat=\"$lat[0-9]*\" lon=\"[0-9\.]*\">.*?<\/trkpt>//g"| perl -pe "s/<trkpt lat=\"[0-9\.]*\" lon=\"$lon[0-9]*\">.*?<\/trkpt>//g"
