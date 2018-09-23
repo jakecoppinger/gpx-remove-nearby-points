@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
+if [ "$#" -ne 4 ]; then
+    echo "Jake Coppinger <jake@jakecoppinger.com> 2018"
+    echo "./gpc-remove-nearby-points.sh LATITUDE LONGITUDE DEC_PLACES"
+    echo ""
+    echo "Removes all track points that match the given coordinate"
+    echo "to DEC_PLACES places."
+    echo ""
+    echo "eg. a trackpoint -33.88260 151.20653 would be removed if "
+    echo "-33.88212 151.20699 is passed to the program and DEC_PLACES"
+    echo "is 3 (the first 3 decimals places match)"
+    exit
+fi
 
 lat=`./coordTrimmer.py $2 $4`
 lon=`./coordTrimmer.py $3 $4`

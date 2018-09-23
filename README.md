@@ -1,34 +1,25 @@
 GPX Remove Nearby Points
 ========================
 
->   Remove points in a GPX (GPS) trace within a specified distance to a point
+>   Remove points in a GPX (GPS) trace that match a given coordinate to a given
+>   number of decimal places
 
-For example: Removing points nearby to your home when uploading a trace to OpenStreetMap.
+For example, a trackpoint -33.88260 151.20653 would be removed if
+33.88212 151.20699 is passed to the program and DEC_PLACES
+is 3 (the first 3 decimals places match)
 
-# Example Usage
+For example: Removing points nearby to your home when uploading a trace to
+OpenStreetMap.
 
-Remove all points in a GPX GPS trace within 300 metres of Central Station, Sydney
+# Usage
 
-```
-cat input.gpx | ./gpx-remove-nearby-points.py -33.8834,151.2065 300 > output.gpx
-```
+Remove all points in a GPX GPS trace that match the given coordinate to 3
+decimal places
 
-# Installing required packages
-
-```
-pip3 install xmltodict dicttoxml geopy
-```
-
-Or:
+./gpc-remove-nearby-points.sh LATITUDE LONGITUDE DEC_PLACES
 
 ```
-pip3 install -r requirements.txt 
-```
-
-# Run tests
-
-```
-./test_sufficient_distance_away.py
+cat input.gpx | ./gpc-remove-nearby-points.sh -33.8834,151.2065 3 > output.gpx
 ```
 
 # Author
